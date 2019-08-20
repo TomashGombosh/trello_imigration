@@ -9,9 +9,8 @@ import org.json.simple.JSONObject;
 
 public class JsonHelper {
 
-    private static void createJson(HashMap<String, Object> map, String file){
-        HashMap<String, String> mapped = map.get(1);
-        JSONObject employeeDetails = new JSONObject(mapped);
+    private static void createJson(HashMap<String, String> map, String file){
+        JSONObject employeeDetails = new JSONObject(map);
         JSONArray employeeList = new JSONArray();
         employeeList.add(employeeDetails);
         //Write JSON file
