@@ -1,7 +1,7 @@
 package dataModels;
 
 import config.Config;
-import services.ExcelHelper;
+import services.helper.ExcelHelper;
 
 public class ExcelDataModel {
     private String  board;
