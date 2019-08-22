@@ -29,7 +29,9 @@ public class CardsImpl extends ApiHelper implements MainService{
     @Override
     public boolean validate(String name) {
         String url = "members/" + Config.MEMBER + "/boards?key=" + Config.API_KEY + "&token=" + Config.TOKEN;
-        JsonObject jsonObject = sendGetRequest(Config.TRELLO_API_URL, null, url);
+        List<NameValuePair> headers = new ArrayList<>();
+        headers.add(new BasicNameValuePair("Content-Type", "application/json; charset=utf-8"));
+        String jsonObject = sendGetRequest(Config.TRELLO_API_URL, headers, url);
         System.out.print(jsonObject);
         return new JsonHelper().isDataPresentInJson(jsonObject,name);
     }

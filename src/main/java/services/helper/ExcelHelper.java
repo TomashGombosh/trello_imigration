@@ -13,8 +13,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class ExcelHelper {
-    private static Logger log = Logger.getLogger("log4j.properties");
-
+    private static Logger log;
+    public ExcelHelper(){
+        log = Logger.getLogger(this.getClass().getCanonicalName());
+    }
     private HashMap<String, String> excelReader(String fileName) {
         HashMap<String, String> map = new HashMap<String, String>();
         try {

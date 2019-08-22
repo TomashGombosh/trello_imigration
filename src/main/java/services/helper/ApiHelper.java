@@ -14,32 +14,37 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class ApiHelper {
+    private static Logger log;
+    protected ApiHelper(){
+         log = Logger.getLogger(this.getClass().getCanonicalName());
+    }
 
-    private static Logger log = Logger.getLogger("busUpdate.services.ApiHelper");
+    protected static String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl){
+        try {
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(baseUrl + requestUrl);
 
-    protected static String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl) throws IOException {
+            for (NameValuePair header : headers) {
+                request.addHeader(header.getName(), header.getValue());
+            }
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(baseUrl + requestUrl);
+            HttpResponse response = client.execute(request);
 
-        for (NameValuePair header : headers) {
-            request.addHeader(header.getName(), header.getValue());
+            response.getEntity().getContent().toString();
+            log.info("Response Code : " + response.getStatusLine().getStatusCode());
+
+            BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+
+            StringBuffer result = new StringBuffer();
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
+            return result.toString();
+        } catch (IOException e){
+            return null;
         }
-
-        HttpResponse response = client.execute(request);
-
-        response.getEntity().getContent().toString();
-        log.info("Response Code : " + response.getStatusLine().getStatusCode());
-
-        BufferedReader rd = new BufferedReader(
-                new InputStreamReader(response.getEntity().getContent()));
-
-        StringBuffer result = new StringBuffer();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
-        return result.toString();
     }
 
     protected static StringBuffer sendGetRequest(String baseUrl, String requestUrl) {

@@ -1,36 +1,27 @@
 package services.helper;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import javax.json.JsonObject;
+import java.util.HashMap;
 
 public class JsonHelper {
 
-    private static void createJson(HashMap<String, String> map, String file){
-        JSONObject employeeDetails = new JSONObject(map);
-        JSONArray employeeList = new JSONArray();
-        employeeList.add(employeeDetails);
-        //Write JSON file
-        try (FileWriter files = new FileWriter(file)) {
-
-            files.write(employeeList.toJSONString());
-            files.flush();
-
-        } catch (IOException e) {
+    private static void createJson(String stringToParse, String file){
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject) parser.parse(stringToParse);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public void createJSON(HashMap<String, String> map, String file){
-        createJson(map, file);
-    }
+//    public void createJSON(HashMap<String, String> map, String file){
+//        createJson(map, file);
+//    }
 
-    public boolean isDataPresentInJson(JsonObject object, String value){
-        return object.toString().contains(value);
+    public boolean isDataPresentInJson(String object, String value){
+        return object.contains(value);
     }
 }
