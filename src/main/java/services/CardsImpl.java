@@ -6,7 +6,6 @@ import org.apache.http.message.BasicNameValuePair;
 import services.helper.ApiHelper;
 import services.helper.JsonHelper;
 
-import javax.json.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class CardsImpl extends ApiHelper implements MainService{
         List<NameValuePair> headers = new ArrayList<>();
         headers.add(new BasicNameValuePair("Content-Type", "application/json; charset=utf-8"));
         String jsonObject = sendGetRequest(Config.TRELLO_API_URL, headers, url);
-        System.out.print(jsonObject);
         return new JsonHelper().isDataPresentInJson(jsonObject,name);
     }
 }
