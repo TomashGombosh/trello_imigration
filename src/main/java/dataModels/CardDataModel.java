@@ -1,11 +1,16 @@
 package dataModels;
 
 public class CardDataModel {
+    private String id;
     private String title;
     private String description;
     private String listId;
     private String labelsId;
     private String membersId;
+
+    public CardDataModel(){
+
+    }
 
     public CardDataModel (String title, String description, String listId, String labelsId, String membersId){
         this.title = title;
@@ -13,6 +18,14 @@ public class CardDataModel {
         this.listId = listId;
         this.labelsId = labelsId;
         this.membersId = membersId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
