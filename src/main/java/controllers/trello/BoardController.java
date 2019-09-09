@@ -1,4 +1,4 @@
-package controllers;
+package controllers.trello;
 
 import com.google.gson.JsonArray;
 import config.Config;

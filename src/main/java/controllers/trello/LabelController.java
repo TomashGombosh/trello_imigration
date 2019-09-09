@@ -1,4 +1,4 @@
-package controllers;
+package controllers.trello;
 
 import services.helper.ApiHelper;
 

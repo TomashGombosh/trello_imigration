@@ -1,4 +1,4 @@
-package controllers;
+package controllers.trello;
 
 import config.Config;
 import dataModels.ListDataModel;

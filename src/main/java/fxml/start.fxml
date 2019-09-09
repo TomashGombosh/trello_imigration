@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="456.0" maxWidth="977.0" prefHeight="455.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartController">
+     <Button layoutX="29.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Excel" fx:id="use_excel" styleClass="use_excel">
+      <font>
+         <Font name="Cambria Italic" size="14.0" />
+      </font></Button>
+   <Label layoutX="13.0" layoutY="14.0" text="Trello Imigration Application ">
+      <font>
+         <Font name="MV Boli" size="35.0" />
+      </font>
+   </Label>
+   <Button layoutX="249.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Desktop">
+      <font>
+         <Font name="Cambria Italic" size="14.0" />
+      </font>
+   </Button>
+</AnchorPane>
