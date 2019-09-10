@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="456.0" maxWidth="977.0" prefHeight="455.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartController">
-     <Button layoutX="29.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Excel" fx:id="use_excel" styleClass="use_excel">
+     <Button layoutX="29.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Excel" fx:id="use_excel" styleClass="use_excel" onAction="#changeScene">
       <font>
          <Font name="Cambria Italic" size="14.0" />
       </font></Button>

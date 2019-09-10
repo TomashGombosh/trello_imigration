@@ -13,6 +13,7 @@ public class TrelloImmigration extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Trello Imigration");
+
         showMainView();
     }
 
