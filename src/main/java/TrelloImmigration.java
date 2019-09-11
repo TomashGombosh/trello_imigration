@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ public class TrelloImmigration extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Trello Imigration");
-
         showMainView();
     }
 
@@ -23,6 +23,8 @@ public class TrelloImmigration extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.getScene().getStylesheets().add("./fxml/styles/main.css");
+       // primaryStage.getIcons().add(new Image(TrelloImmigration.class.getResourceAsStream("/fxml/images/Trello.png")));
         primaryStage.show();
     }
 

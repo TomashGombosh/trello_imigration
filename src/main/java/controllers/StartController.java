@@ -13,18 +13,32 @@ import java.io.IOException;
 
 public class StartController {
     @FXML
-    private Button use_excel;
+    private Button useExcel;
+
+    @FXML
+    private Button useDesktop;
 
     @FXML
     public void initialize() {
     }
 
     @FXML
-    private void changeScene(ActionEvent event) {
+    private void goToExcel(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/use-excel.fxml"));
             Parent parent = loader.load();
-            ((Stage)use_excel.getScene().getWindow()).setScene(new Scene(parent, 455, 475));
+            ((Stage)useExcel.getScene().getWindow()).setScene(new Scene(parent, 455, 475));
+        } catch (IOException eox) {
+            eox.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToDesktop(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/use-desktop.fxml"));
+            Parent parent = loader.load();
+            ((Stage)useDesktop.getScene().getWindow()).setScene(new Scene(parent, 455, 475));
         } catch (IOException eox) {
             eox.printStackTrace();
         }
