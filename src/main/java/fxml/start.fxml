@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="456.0" maxWidth="977.0" prefHeight="455.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartController">
-     <Button layoutX="29.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Excel" fx:id="useExcel" onAction="#goToExcel">
+<AnchorPane maxHeight="456.0" maxWidth="977.0" prefHeight="455.0" prefWidth="475.0" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartController">
+     <Button fx:id="useExcel" layoutX="29.0" layoutY="388.0" onAction="#goToExcel" prefHeight="44.0" prefWidth="151.0" text="Use Excel">
       <font>
          <Font name="Cambria Italic" size="14.0" />
       </font></Button>
@@ -15,7 +15,7 @@
          <Font name="MV Boli" size="35.0" />
       </font>
    </Label>
-   <Button layoutX="249.0" layoutY="388.0" prefHeight="44.0" prefWidth="151.0" text="Use Desktop" fx:id="useDesktop" onAction="#goToDesktop">
+   <Button fx:id="useDesktop" layoutX="249.0" layoutY="388.0" onAction="#goToDesktop" prefHeight="44.0" prefWidth="151.0" text="Use Desktop">
       <font>
          <Font name="Cambria Italic" size="14.0" />
       </font>
