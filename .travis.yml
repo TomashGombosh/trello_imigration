@@ -1,12 +1,13 @@
 language: java
 sudo: false
-jdk:
-  - openjdk8
-script: mvn install
+jdk: openjdk8
+install: true
+script: ./mvnw clean install
+
 notifications:
   email:
     recipients:
       - blackjneco@gmail.com
       - blackjneco@mailfence.com
     on_success: always # default: change
-    on_failure: always # default: always
+    on_failure: always # default:
