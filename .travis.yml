@@ -2,3 +2,11 @@ language: java
 sudo: false
 jdk:
   - openjdk8
+
+notifications:
+  email:
+    recipients:
+      - blackjneco@gmail.com
+      - blackjneco@mailfence.com
+    on_success: always # default: change
+    on_failure: always # default: always
