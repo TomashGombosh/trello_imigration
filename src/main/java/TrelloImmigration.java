@@ -23,8 +23,7 @@ public class TrelloImmigration extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.getScene().getStylesheets().add("./fxml/styles/main.css");
-       // primaryStage.getIcons().add(new Image(TrelloImmigration.class.getResourceAsStream("/fxml/images/Trello.png")));
+        primaryStage.getIcons().add(new Image(TrelloImmigration.class.getResourceAsStream("/fxml/images/Trello.png")));
         primaryStage.show();
     }
 
