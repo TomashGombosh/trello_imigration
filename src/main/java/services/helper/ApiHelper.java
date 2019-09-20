@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public abstract class ApiHelper {
     private static Logger log;
 
     protected ApiHelper(){
+        PropertyConfigurator.configure(System.getProperty("user.dir") + "/src/main/resources/log4j.properties");
         log = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
