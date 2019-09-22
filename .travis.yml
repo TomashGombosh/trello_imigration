@@ -2,7 +2,7 @@ language: java
 sudo: false
 jdk: openjdk8
 install: true
-
+before_script: sudo apt-get install openjfx
 script: mvn test
 
 notifications:
@@ -11,4 +11,4 @@ notifications:
       - blackjneco@gmail.com
       - blackjneco@mailfence.com
     on_success: always # default: change
-    on_failure: always # default:
+    on_failure: always # default
