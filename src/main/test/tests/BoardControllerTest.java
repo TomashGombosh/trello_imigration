@@ -16,7 +16,7 @@ public class BoardControllerTest {
         memberDataModel.setId(memberName);
         BoardDataModel boardDataModel = new BoardDataModel();
         boardDataModel.setName(boardName);
-        String actualBoardId = new BoardController().getBoardId(memberDataModel, boardDataModel);
+        String actualBoardId = new BoardController().getBoardId(boardDataModel);
         Assert.assertEquals(actualBoardId, boardId, "Board id should be the same");
     }
 }

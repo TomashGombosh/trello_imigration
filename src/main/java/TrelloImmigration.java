@@ -21,8 +21,7 @@ public class TrelloImmigration extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(TrelloImmigration.class.getResource("./fxml/start.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(new Scene(root, 455, 475));
         primaryStage.getIcons().add(new Image(TrelloImmigration.class.getResourceAsStream("/fxml/images/Trello.png")));
         primaryStage.show();
     }

@@ -1,15 +1,11 @@
 package controllers;
 
-import controllers.trello.BoardController;
-import dataModels.BoardDataModel;
-import dataModels.MemberDataModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
@@ -24,12 +20,8 @@ public class StartController implements Initializable {
     @FXML
     private Button useDesktop;
 
-    @FXML
-    private Label boardId;
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        boardId.setText(setLabel());
+    public void initialize(URL location, ResourceBundle resources){
     }
 
     @FXML
@@ -52,13 +44,5 @@ public class StartController implements Initializable {
         } catch (IOException eox) {
             eox.printStackTrace();
         }
-    }
-
-    private String setLabel(){
-        MemberDataModel memberDataModel = new MemberDataModel();
-        memberDataModel.setId("tomashgombosh1");
-        BoardDataModel boardDataModel = new BoardDataModel();
-        boardDataModel.setName("Trello_immigration");
-        return new BoardController().getBoardId(memberDataModel, boardDataModel);
     }
 }

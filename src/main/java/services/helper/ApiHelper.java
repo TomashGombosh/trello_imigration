@@ -5,6 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
@@ -25,7 +26,7 @@ public abstract class ApiHelper {
         log = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
-    protected static String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl){
+    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl){
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(baseUrl + requestUrl);
@@ -53,7 +54,7 @@ public abstract class ApiHelper {
         }
     }
 
-    protected static String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl,  List<NameValuePair> requestParameters){
+    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl,  List<NameValuePair> requestParameters){
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(baseUrl + requestUrl);
@@ -89,7 +90,7 @@ public abstract class ApiHelper {
         }
     }
 
-    protected static StringBuffer sendGetRequest(String baseUrl, String requestUrl) {
+    protected StringBuffer sendGetRequest(String baseUrl, String requestUrl) {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(baseUrl + requestUrl);
@@ -113,7 +114,7 @@ public abstract class ApiHelper {
         }
     }
 
-    protected static String sendPostRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
+    protected String sendPostRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
         try {
 
 
@@ -141,5 +142,38 @@ public abstract class ApiHelper {
             log.info(e);
         }
         return null;
+    }
+
+    protected static String sendPutRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
+        try {
+
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpPut put = new HttpPut(baseUrl + requestUrl);
+
+            // add header
+            for (NameValuePair header : headers) {
+                put.addHeader(header.getName(), header.getValue());
+            }
+            put.setEntity(new UrlEncodedFormEntity(requestParameters,  "utf-8"));
+
+            HttpResponse response = client.execute(put);
+
+            BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+
+            StringBuffer result = new StringBuffer();
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
+            return result.toString();
+        } catch (IOException e){
+            log.info(e);
+        }
+        return null;
+    }
+
+    private void requestBuilder(){
+
     }
 }
