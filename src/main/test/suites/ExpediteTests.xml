@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Board_test">
+    <test name="getBoardId">
+        <parameter name="boardName" value="Trello_immigration" />
+        <parameter name="memberName" value="tomashgombosh1" />
+        <parameter name="boardId" value="5d4be8df62d8c6448ead94eb" />
+        <classes>
+            <class name="tests.BoardControllerTest"/>
+        </classes>
+    </test>
+</suite>
