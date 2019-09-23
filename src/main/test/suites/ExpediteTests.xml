@@ -5,6 +5,11 @@
         <parameter name="boardName" value="Trello_immigration" />
         <parameter name="memberName" value="tomashgombosh1" />
         <parameter name="boardId" value="5d4be8df62d8c6448ead94eb" />
+        <parameter name="desc" value="" />
+        <parameter name="desc" value="" />
+        <parameter name="label1" value="green" />
+        <parameter name="label2" value="yellow" />
+        <parameter name="label3" value="orange" />
         <classes>
             <class name="tests.BoardControllerTest"/>
         </classes>

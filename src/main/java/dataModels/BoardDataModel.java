@@ -51,6 +51,10 @@ public class BoardDataModel {
         return map;
     }
 
+    public void setLabels(HashMap<Integer, LabelDataModel> labels){
+        this.labels = labels;
+    }
+
     public HashMap<Integer, ListDataModel> getLists(JsonArray jsonArray) {
         HashMap<Integer, ListDataModel> map = new HashMap<>();
         for(int counter = 0; counter <=jsonArray.size(); counter++){

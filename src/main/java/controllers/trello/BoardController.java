@@ -3,6 +3,7 @@ package controllers.trello;
 import com.google.gson.JsonArray;
 import config.Config;
 import dataModels.BoardDataModel;
+import dataModels.LabelDataModel;
 import dataModels.MemberDataModel;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -38,11 +39,11 @@ public class BoardController extends ApiHelper {
         return null;
     }
 
-    public BoardDataModel getBoardInfo(BoardDataModel boardDataModel) {
+    public BoardDataModel getBoardInfo(String idOrName) {
         HashMap<Integer, BoardDataModel> map = getBoardsInfo();
         for (int counter = 0; counter < map.size(); counter++) {
             BoardDataModel boardDataModel1 = map.get(counter);
-            if (boardDataModel1.getName().equals(boardDataModel.getName())) {
+            if (boardDataModel1.getName().equals(idOrName)) {
                 return boardDataModel1;
             }
         }
@@ -65,12 +66,12 @@ public class BoardController extends ApiHelper {
         List<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair("key", Config.API_KEY));
         parameters.add(new BasicNameValuePair("token", Config.TOKEN));
-        String s = sendGetRequest(Config.TRELLO_API_URL, headers, url, parameters);
         JsonArray jsonArray = (JsonArray) parser.parse(sendGetRequest(Config.TRELLO_API_URL, headers, url, parameters));
         for (int counter = 0; counter < jsonArray.size(); counter++) {
             BoardDataModel getBoardDataModel = new BoardDataModel();
             getBoardDataModel.setId(jsonArray.get(counter).getAsJsonObject().get("id").getAsString());
             getBoardDataModel.setName(jsonArray.get(counter).getAsJsonObject().get("name").getAsString());
+            getBoardDataModel.setDescription(jsonArray.get(counter).getAsJsonObject().get("desc").getAsString());
             map.put(counter, getBoardDataModel);
         }
         return map;
