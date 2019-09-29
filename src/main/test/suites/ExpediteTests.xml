@@ -2,14 +2,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Board_test">
     <test name="getBoardId">
-        <parameter name="boardName" value="Trello_immigration" />
-        <parameter name="memberName" value="tomashgombosh1" />
-        <parameter name="boardId" value="5d4be8df62d8c6448ead94eb" />
-        <parameter name="desc" value="" />
-        <parameter name="desc" value="" />
-        <parameter name="label1" value="green" />
-        <parameter name="label2" value="yellow" />
-        <parameter name="label3" value="orange" />
+        <parameter name="boardName" value="Trello_immigration"/>
+        <parameter name="memberName" value="tomashgombosh1"/>
+        <parameter name="boardId" value="5d4be8df62d8c6448ead94eb"/>
+        <parameter name="desc" value=""/>
+        <parameter name="label1" value="green"/>
+        <parameter name="label1name" value="P1"/>
+        <parameter name="label2" value="yellow"/>
+        <parameter name="label2name" value="P2"/>
+        <parameter name="label3" value="orange"/>
+        <parameter name="label3name" value="P3"/>
         <classes>
             <class name="tests.BoardControllerTest"/>
         </classes>

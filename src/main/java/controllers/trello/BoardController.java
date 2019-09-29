@@ -1,6 +1,7 @@
 package controllers.trello;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import config.Config;
 import dataModels.BoardDataModel;
 import dataModels.LabelDataModel;
@@ -18,8 +19,9 @@ import java.util.List;
 
 public class BoardController extends ApiHelper {
     private String url = "boards";
-    private HashMap<Integer, BoardDataModel> getUserBoards;
+    private HashMap<Integer, BoardDataModel> getUserBoards ;
     private MemberDataModel defaultUser;
+    private HashMap<Integer, LabelDataModel> defaultLabels = new BoardDataModel().defaultLabels();
 
     public BoardController() {
         defaultUser = new MemberDataModel();
@@ -43,7 +45,7 @@ public class BoardController extends ApiHelper {
         HashMap<Integer, BoardDataModel> map = getBoardsInfo();
         for (int counter = 0; counter < map.size(); counter++) {
             BoardDataModel boardDataModel1 = map.get(counter);
-            if (boardDataModel1.getName().equals(idOrName)) {
+            if (boardDataModel1.getName().equals(idOrName) || boardDataModel1.getId().equals(idOrName)) {
                 return boardDataModel1;
             }
         }
@@ -69,9 +71,18 @@ public class BoardController extends ApiHelper {
         JsonArray jsonArray = (JsonArray) parser.parse(sendGetRequest(Config.TRELLO_API_URL, headers, url, parameters));
         for (int counter = 0; counter < jsonArray.size(); counter++) {
             BoardDataModel getBoardDataModel = new BoardDataModel();
+            HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
             getBoardDataModel.setId(jsonArray.get(counter).getAsJsonObject().get("id").getAsString());
             getBoardDataModel.setName(jsonArray.get(counter).getAsJsonObject().get("name").getAsString());
             getBoardDataModel.setDescription(jsonArray.get(counter).getAsJsonObject().get("desc").getAsString());
+            JsonObject labelObject = jsonArray.get(counter).getAsJsonObject().getAsJsonObject("labelNames");
+            for(int labelCounter = 0; labelCounter < labelObject.size(); labelCounter++){
+                LabelDataModel label = new LabelDataModel();
+                label.setId(defaultLabels.get(labelCounter).getId());
+                label.setName(labelObject.get(defaultLabels.get(labelCounter).getId()).getAsString());
+                labelMap.put(labelCounter, label);
+            }
+            getBoardDataModel.setLabels(labelMap);
             map.put(counter, getBoardDataModel);
         }
         return map;

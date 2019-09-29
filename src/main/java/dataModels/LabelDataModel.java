@@ -5,6 +5,14 @@ public class LabelDataModel {
     private String name;
     private String color;
 
+    public LabelDataModel(){
+
+    }
+
+    LabelDataModel(String id){
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
