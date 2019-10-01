@@ -1,13 +1,17 @@
 package services.helper;
 
+import net.jcip.annotations.NotThreadSafe;
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -20,13 +24,41 @@ import java.util.List;
 
 public abstract class ApiHelper {
     private static Logger log;
+    private HttpResponse response;
+    private HttpClient client;
 
-    protected ApiHelper(){
+    protected ApiHelper() {
+
         PropertyConfigurator.configure(System.getProperty("user.dir") + "/src/main/resources/log4j.properties");
         log = Logger.getLogger(this.getClass().getCanonicalName());
+        client = HttpClientBuilder.create().build();
+
     }
 
-    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl){
+    @NotThreadSafe
+    class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
+        public static final String METHOD_NAME = "DELETE";
+
+        public String getMethod() {
+            return METHOD_NAME;
+        }
+
+        public HttpDeleteWithBody(final String uri) {
+            super();
+            setURI(URI.create(uri));
+        }
+
+        public HttpDeleteWithBody(final URI uri) {
+            super();
+            setURI(uri);
+        }
+
+        public HttpDeleteWithBody() {
+            super();
+        }
+    }
+
+    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl) {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(baseUrl + requestUrl);
@@ -35,10 +67,9 @@ public abstract class ApiHelper {
                 request.addHeader(header.getName(), header.getValue());
             }
 
-            HttpResponse response = client.execute(request);
+            response = client.execute(request);
 
             response.getEntity().getContent().toString();
-            log.info("Response Code : " + response.getStatusLine().getStatusCode());
 
             BufferedReader rd = new BufferedReader(
                     new InputStreamReader(response.getEntity().getContent()));
@@ -49,14 +80,14 @@ public abstract class ApiHelper {
                 result.append(line);
             }
             return result.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             return null;
         }
     }
 
-    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl,  List<NameValuePair> requestParameters){
+    protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
         try {
-            HttpClient client = HttpClientBuilder.create().build();
+
             HttpGet request = new HttpGet(baseUrl + requestUrl);
 
             for (NameValuePair header : headers) {
@@ -85,17 +116,16 @@ public abstract class ApiHelper {
                 result.append(line);
             }
             return result.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             return null;
         }
     }
 
     protected StringBuffer sendGetRequest(String baseUrl, String requestUrl) {
         try {
-            HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(baseUrl + requestUrl);
 
-            HttpResponse response = client.execute(request);
+            client.execute(request);
 
             response.getEntity().getContent().toString();
 
@@ -117,17 +147,15 @@ public abstract class ApiHelper {
     protected String sendPostRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
         try {
 
-
-            HttpClient client = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(baseUrl + requestUrl);
 
             // add header
             for (NameValuePair header : headers) {
                 post.addHeader(header.getName(), header.getValue());
             }
-            post.setEntity(new UrlEncodedFormEntity(requestParameters,  "utf-8"));
+            post.setEntity(new UrlEncodedFormEntity(requestParameters, "utf-8"));
 
-            HttpResponse response = client.execute(post);
+            client.execute(post);
 
             BufferedReader rd = new BufferedReader(
                     new InputStreamReader(response.getEntity().getContent()));
@@ -138,23 +166,22 @@ public abstract class ApiHelper {
                 result.append(line);
             }
             return result.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             log.info(e);
         }
         return null;
     }
 
-    protected static String sendPutRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
+    protected String sendPutRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
         try {
 
-            HttpClient client = HttpClientBuilder.create().build();
             HttpPut put = new HttpPut(baseUrl + requestUrl);
 
             // add header
             for (NameValuePair header : headers) {
                 put.addHeader(header.getName(), header.getValue());
             }
-            put.setEntity(new UrlEncodedFormEntity(requestParameters,  "utf-8"));
+            put.setEntity(new UrlEncodedFormEntity(requestParameters, "utf-8"));
 
             HttpResponse response = client.execute(put);
 
@@ -167,13 +194,38 @@ public abstract class ApiHelper {
                 result.append(line);
             }
             return result.toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             log.info(e);
         }
         return null;
     }
 
-    private void requestBuilder(){
+    protected String[] sendDeleteRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, String requestParameters) {
+        try {
+            String URL = baseUrl + requestUrl;
+            String[] restResponse = new String[2];
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+
+            HttpDeleteWithBody httpDelete = new HttpDeleteWithBody(URL);
+            StringEntity input = new StringEntity(requestParameters, ContentType.APPLICATION_JSON);
+
+            for (NameValuePair header : headers) {
+                httpDelete.addHeader(header.getName(), header.getValue());
+            }
+            httpDelete.setEntity(input);
+
+            Header requestHeaders[] = httpDelete.getAllHeaders();
+            CloseableHttpResponse response = httpclient.execute(httpDelete);
+            restResponse[0] = Integer.toString((response.getStatusLine().getStatusCode()));
+            restResponse[1] = EntityUtils.toString(response.getEntity());
+            return restResponse;
+        } catch (IOException e) {
+            log.info(e);
+        }
+        return null;
+    }
+
+    private void requestBuilder() {
 
     }
 }

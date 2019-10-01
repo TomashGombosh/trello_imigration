@@ -103,4 +103,16 @@ public class BoardController extends ApiHelper {
             return "Board with that data is present";
         }
     }
+
+    public String deleteBoard(@NotNull BoardDataModel boardDataModel){
+        if (validateBoardInfo(boardDataModel)) {
+            List<NameValuePair> headers = new ArrayList<>();
+            String parameters = Config.API_KEY + Config.TOKEN;
+            String durl = url + "/" + boardDataModel.getId();
+            sendDeleteRequest(Config.TRELLO_API_URL, headers, durl, parameters);
+            return "Success";
+        } else {
+            return "Board with that data is not present";
+        }
+    }
 }
