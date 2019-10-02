@@ -17,6 +17,10 @@ public class BoardDataModel {
 
     }
 
+    public BoardDataModel(String id){
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
