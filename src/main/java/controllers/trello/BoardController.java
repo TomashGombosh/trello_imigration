@@ -83,7 +83,8 @@ public class BoardController extends ApiHelper {
 
     public BoardDataModel createBoard(@NotNull BoardDataModel boardDataModel) {
         BoardDataModel getBoardDataModel = new BoardDataModel();
-        if (!validateBoardInfo(boardDataModel)) {
+        //TODO Add validator
+        /*if (!validateBoardInfo(boardDataModel)) {*/
             List<NameValuePair> headers = new ArrayList<>();
             List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("name", boardDataModel.getName()));
@@ -98,15 +99,15 @@ public class BoardController extends ApiHelper {
             getBoardDataModel.setDescription(jsonObject.getAsJsonObject().get("desc").getAsString());
             getBoardDataModel.setLabels(getLabels(jsonObject.getAsJsonObject().getAsJsonObject("labelNames")));
             return getBoardDataModel;
-        } else {
+        /*} else {
             getBoardDataModel.setId("Board Already Created");
             return getBoardDataModel;
-        }
+        }*/
     }
 
     public BoardDataModel updateBoard(@NotNull BoardDataModel updateBoardDataModel, @NotNull String name) {
         BoardDataModel actualBoardDataModel = getBoardInfo(name);
-        //TO DO ADD Validator
+        //TODO Add validator
         /*
         if (!validateBoardInfo(boardDataModel)) {
 
