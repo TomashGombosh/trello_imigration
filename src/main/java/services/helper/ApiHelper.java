@@ -73,15 +73,11 @@ public abstract class ApiHelper {
         return convertResponseToString(response);
     }
 
-    protected String sendDeleteRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, String requestParameters) {
-        String URL = baseUrl + requestUrl;
-
-        HttpDeleteWithBody httpDelete = new HttpDeleteWithBody(URL);
-        StringEntity input = new StringEntity(requestParameters, ContentType.APPLICATION_JSON);
-
-        setHeaders(httpDelete, headers);
-        httpDelete.setEntity(input);
-        response = execute(httpDelete);
+    protected String sendDeleteRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
+        HttpDelete get = new HttpDelete(baseUrl + requestUrl);
+        setHeaders(get, headers);
+        get.setURI(buildURl(get, requestParameters));
+        response = execute(get);
         return convertResponseToString(response);
     }
 

@@ -21,7 +21,7 @@ public class BoardControllerTest {
         defaultBoardDataModel.setName("Test");
     }
 
-    @Test
+    @Test(priority = 1)
     @Parameters(value = {"boardName", "memberName", "boardId"})
     public void getBoardId(String boardName, String memberName, String boardId) {
         MemberDataModel memberDataModel = new MemberDataModel();
@@ -32,7 +32,7 @@ public class BoardControllerTest {
         Assert.assertEquals(actualBoardId, boardId, "Board id should be the same");
     }
 
-    @Test
+    @Test(priority = 2)
     @Parameters(value = {"boardName", "boardId", "desc", "label1", "label1name", "label2", "label2name", "label3", "label3name"})
     public void getBoardInfoById(String boardName, String boardId, String desc, String label1, String label1name, String label2, String label2name, String label3, String label3name) {
         BoardDataModel expectedBoardDataModel = new BoardDataModel();
@@ -60,7 +60,7 @@ public class BoardControllerTest {
         Assert.assertTrue(expectedBoardDataModel.isDataTheSame(actualBoardDataModel), "Data in the models should be the same");
     }
 
-    @Test
+    @Test(priority = 3)
     @Parameters(value = {"boardName", "boardId", "desc", "label1", "label1name", "label2", "label2name", "label3", "label3name"})
     public void getBoardInfoByName(String boardName, String boardId, String desc, String label1, String label1name, String label2, String label2name, String label3, String label3name) {
         BoardDataModel expectedBoardDataModel = new BoardDataModel();
@@ -88,7 +88,7 @@ public class BoardControllerTest {
         Assert.assertTrue(expectedBoardDataModel.isDataTheSame(actualBoardDataModel), "Data in the models should be the same");
     }
 
-    @Test
+    @Test(priority = 4)
     public void createBoard() {
         BoardDataModel createdBoardData = new BoardController().createBoard(defaultBoardDataModel);
         BoardDataModel actualBoardData = new BoardController().getBoardInfo(defaultBoardDataModel.getName());
@@ -96,9 +96,9 @@ public class BoardControllerTest {
         Assert.assertTrue(actualBoardData.isDataTheSame(createdBoardData), "Data in the models should be the same");
     }
 
-    @Test
+    @Test(priority = 5)
     public void deleteBoard() {
         String result = new BoardController().deleteBoard(defaultBoardDataModel);
-        Assert.assertTrue(result.equals(""));
+        Assert.assertTrue(result.contains("{\"_value\":null}"));
     }
 }

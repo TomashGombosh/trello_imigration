@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BoardController extends ApiHelper {
     private String url = "boards";
-    private HashMap<Integer, BoardDataModel> getUserBoards ;
+    private HashMap<Integer, BoardDataModel> getUserBoards;
     private MemberDataModel defaultUser;
     private HashMap<Integer, LabelDataModel> defaultLabels = new BoardDataModel().defaultLabels();
     private JsonParser parser;
@@ -92,11 +92,11 @@ public class BoardController extends ApiHelper {
             parameters.add(new BasicNameValuePair("key", Config.API_KEY));
             parameters.add(new BasicNameValuePair("token", Config.TOKEN));
             JsonObject jsonObject = (JsonObject) parser.parse(sendPostRequest(Config.TRELLO_API_URL, headers, url, parameters));
-                HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
-                getBoardDataModel.setId(jsonObject.getAsJsonObject().get("id").getAsString());
-                getBoardDataModel.setName(jsonObject.getAsJsonObject().get("name").getAsString());
-                getBoardDataModel.setDescription(jsonObject.getAsJsonObject().get("desc").getAsString());
-                getBoardDataModel.setLabels(getLabels(jsonObject.getAsJsonObject().getAsJsonObject("labelNames")));
+            HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
+            getBoardDataModel.setId(jsonObject.getAsJsonObject().get("id").getAsString());
+            getBoardDataModel.setName(jsonObject.getAsJsonObject().get("name").getAsString());
+            getBoardDataModel.setDescription(jsonObject.getAsJsonObject().get("desc").getAsString());
+            getBoardDataModel.setLabels(getLabels(jsonObject.getAsJsonObject().getAsJsonObject("labelNames")));
             return getBoardDataModel;
         } else {
             getBoardDataModel.setId("Board Already Created");
@@ -104,10 +104,26 @@ public class BoardController extends ApiHelper {
         }
     }
 
-    public String deleteBoard(@NotNull BoardDataModel boardDataModel){
+    public BoardDataModel updateBoard(@NotNull BoardDataModel updateBoardDataModel, @NotNull String name) {
+        BoardDataModel actualBoardDataModel = getBoardInfo(name);
+        //TO DO ADD Validator
+        /*
+        if (!validateBoardInfo(boardDataModel)) {
+
+        } else {
+            getBoardDataModel.setId("Board Already Created");
+            return getBoardDataModel;
+        }*/
+        return null;
+    }
+
+
+    public String deleteBoard(@NotNull BoardDataModel boardDataModel) {
+        List<NameValuePair> parameters = new ArrayList<>();
         if (validateBoardInfo(boardDataModel)) {
             List<NameValuePair> headers = new ArrayList<>();
-            String parameters = Config.API_KEY + Config.TOKEN;
+            parameters.add(new BasicNameValuePair("key", Config.API_KEY));
+            parameters.add(new BasicNameValuePair("token", Config.TOKEN));
             String durl = url + "/" + boardDataModel.getId();
             return sendDeleteRequest(Config.TRELLO_API_URL, headers, durl, parameters);
         } else {
@@ -115,9 +131,9 @@ public class BoardController extends ApiHelper {
         }
     }
 
-    private HashMap<Integer, LabelDataModel> getLabels(JsonObject labelObject){
+    private HashMap<Integer, LabelDataModel> getLabels(JsonObject labelObject) {
         HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
-        for(int labelCounter = 0; labelCounter < labelObject.size(); labelCounter++){
+        for (int labelCounter = 0; labelCounter < labelObject.size(); labelCounter++) {
             LabelDataModel label = new LabelDataModel();
             label.setId(defaultLabels.get(labelCounter).getId());
             label.setName(labelObject.get(defaultLabels.get(labelCounter).getId()).getAsString());
