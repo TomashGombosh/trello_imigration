@@ -56,7 +56,7 @@ public class BoardController extends ApiHelper {
 
     private boolean validateBoardInfo(BoardDataModel boardDataModel) {
         for (int counter = 0; counter < getUserBoards.size(); counter++) {
-            if (getUserBoards.get(counter).equals(boardDataModel))
+            if (getUserBoards.get(counter).isDataTheSame(boardDataModel))
                 return true;
         }
         return false;
@@ -82,9 +82,8 @@ public class BoardController extends ApiHelper {
     }
 
     public BoardDataModel createBoard(@NotNull BoardDataModel boardDataModel) {
-        BoardDataModel getBoardDataModel = new BoardDataModel();
-        //TODO Add validator
-        /*if (!validateBoardInfo(boardDataModel)) {*/
+        if (!validateBoardInfo(boardDataModel)) {
+            BoardDataModel getBoardDataModel = new BoardDataModel();
             List<NameValuePair> headers = new ArrayList<>();
             List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("name", boardDataModel.getName()));
@@ -93,28 +92,24 @@ public class BoardController extends ApiHelper {
             parameters.add(new BasicNameValuePair("key", Config.API_KEY));
             parameters.add(new BasicNameValuePair("token", Config.TOKEN));
             JsonObject jsonObject = (JsonObject) parser.parse(sendPostRequest(Config.TRELLO_API_URL, headers, url, parameters));
-            HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
             getBoardDataModel.setId(jsonObject.getAsJsonObject().get("id").getAsString());
             getBoardDataModel.setName(jsonObject.getAsJsonObject().get("name").getAsString());
             getBoardDataModel.setDescription(jsonObject.getAsJsonObject().get("desc").getAsString());
             getBoardDataModel.setLabels(getLabels(jsonObject.getAsJsonObject().getAsJsonObject("labelNames")));
             return getBoardDataModel;
-        /*} else {
-            getBoardDataModel.setId("Board Already Created");
-            return getBoardDataModel;
-        }*/
+        } else {
+            return new BoardDataModel("Board Already Created");
+        }
     }
 
     public BoardDataModel updateBoard(@NotNull BoardDataModel updateBoardDataModel, @NotNull String name) {
         BoardDataModel actualBoardDataModel = getBoardInfo(name);
-        //TODO Add validator
-        /*
-        if (!validateBoardInfo(boardDataModel)) {
+        if (!validateBoardInfo(updateBoardDataModel)) {
 
         } else {
-            getBoardDataModel.setId("Board Already Created");
-            return getBoardDataModel;
-        }*/
+            actualBoardDataModel.setId("Board Already Created");
+            return actualBoardDataModel;
+        }
         return null;
     }
 
@@ -142,4 +137,5 @@ public class BoardController extends ApiHelper {
         }
         return labelMap;
     }
+
 }

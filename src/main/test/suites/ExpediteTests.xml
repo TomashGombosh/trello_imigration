@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Board_test">
-    <test name="getBoardId">
+<suite name="Trello Immigration UNIT Tests">
+    <test name="Board Controller Tests">
         <parameter name="boardName" value="Trello_immigration"/>
         <parameter name="memberName" value="tomashgombosh1"/>
         <parameter name="boardId" value="5d4be8df62d8c6448ead94eb"/>
@@ -14,6 +14,16 @@
         <parameter name="label3name" value="P3"/>
         <classes>
             <class name="tests.BoardControllerTest"/>
+        </classes>
+    </test>
+    <test name="List Controller Tests">
+        <parameter name="boardId" value="5d4be8df62d8c6448ead94eb"/>
+        <parameter name="listName" value="Test_list"/>
+        <parameter name="listId" value="5d5ff4ec6734a06c7dc3187a"/>
+        <parameter name="cardName" value="Test_card"/>
+        <parameter name="cardId" value="5d4bee78f418e137d8e54912"/>
+        <classes>
+            <class name="tests.ListControllerTest"/>
         </classes>
     </test>
 </suite>

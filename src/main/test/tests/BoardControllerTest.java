@@ -5,18 +5,16 @@ import dataModels.BoardDataModel;
 import dataModels.LabelDataModel;
 import dataModels.MemberDataModel;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 
 public class BoardControllerTest {
-    BoardDataModel defaultBoardDataModel = new BoardDataModel();
-    LabelDataModel defaultLabelDataModel = new LabelDataModel();
+    private BoardDataModel defaultBoardDataModel = new BoardDataModel();
 
-    @BeforeSuite
+    @BeforeTest
     private void addDataToModel() {
         defaultBoardDataModel.setName("Test");
     }
@@ -100,5 +98,23 @@ public class BoardControllerTest {
     public void deleteBoard() {
         String result = new BoardController().deleteBoard(defaultBoardDataModel);
         Assert.assertTrue(result.contains("{\"_value\":null}"));
+    }
+
+    @Test(priority = 6)
+    @Parameters(value = "boardName")
+    public void createDuplicateBoard(String boardName){
+        BoardDataModel alreadyExistBoard = new BoardDataModel();
+        alreadyExistBoard.setName(boardName);
+        BoardDataModel createdBoardData = new BoardController().createBoard(alreadyExistBoard);
+        Assert.assertTrue(createdBoardData.getId().equals("Board Already Created"), "Exception of already created board");
+    }
+
+    @Test(priority = 7)
+    public void deleteNotExistBoard(){
+        BoardDataModel nonExistBoard = new BoardDataModel();
+        nonExistBoard.setName("XXXXX");
+        nonExistBoard.setId("XXXXXXX");
+        String result = new BoardController().deleteBoard(nonExistBoard);
+        Assert.assertEquals(result, "Board with that data is not present");
     }
 }
