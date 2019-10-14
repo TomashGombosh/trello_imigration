@@ -10,6 +10,7 @@ public class BoardDataModel {
     private String id;
     private String name;
     private String description;
+    private String color;
     private HashMap<Integer, LabelDataModel> labels;
     private HashMap<Integer, ListDataModel> lists;
 
@@ -17,7 +18,19 @@ public class BoardDataModel {
 
     }
 
-    public BoardDataModel(String id){
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setLists(HashMap<Integer, ListDataModel> lists) {
+        this.lists = lists;
+    }
+
+    public BoardDataModel(String id) {
         this.id = id;
     }
 
@@ -100,8 +113,8 @@ public class BoardDataModel {
             resultList.add(new StringHelper().compareStringsWithLog(this.description, boardDataModel.description));
         }
         if (this.labels != null && boardDataModel.labels != null) {
-                for (int i = 0; i < this.labels.size(); i++) {
-                resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getId(), boardDataModel.labels.get(i).getId()));
+            for (int i = 0; i < this.labels.size(); i++) {
+                resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getColor(), boardDataModel.labels.get(i).getColor()));
                 resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getName(), boardDataModel.labels.get(i).getName()));
             }
         }
@@ -111,8 +124,8 @@ public class BoardDataModel {
                 resultList.add(new StringHelper().compareStringsWithLog(this.lists.get(i).getName(), boardDataModel.lists.get(i).getName()));
             }
         }
-        for(int i = 0; i< resultList.size();i++){
-            same&=resultList.get(i);
+        for (int i = 0; i < resultList.size(); i++) {
+            same &= resultList.get(i);
         }
         return same;
     }

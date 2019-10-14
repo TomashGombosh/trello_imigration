@@ -1,17 +1,11 @@
 package services.helper;
 
-import net.jcip.annotations.NotThreadSafe;
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jetbrains.annotations.NotNull;
@@ -33,20 +27,6 @@ public abstract class ApiHelper {
         PropertyConfigurator.configure(System.getProperty("user.dir") + "/src/main/resources/log4j.properties");
         log = Logger.getLogger(this.getClass().getCanonicalName());
         client = HttpClientBuilder.create().build();
-    }
-
-    @NotThreadSafe
-    class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
-        private static final String METHOD_NAME = "DELETE";
-
-        public String getMethod() {
-            return METHOD_NAME;
-        }
-
-        private HttpDeleteWithBody(final String uri) {
-            super();
-            setURI(URI.create(uri));
-        }
     }
 
     protected String sendGetRequest(String baseUrl, List<NameValuePair> headers, String requestUrl, List<NameValuePair> requestParameters) {
