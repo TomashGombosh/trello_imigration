@@ -11,8 +11,9 @@ public class LabelDataModel {
 
     }
 
-    LabelDataModel(String color) {
+    LabelDataModel(String color, String name) {
         this.color = color;
+        this.name = name;
     }
 
     public String getId() {

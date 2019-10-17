@@ -40,11 +40,11 @@ public class BoardControllerTest {
         LabelDataModel labelDataModel3 = new LabelDataModel();
         HashMap<Integer, LabelDataModel> labelDataModelHashMap = new HashMap<>();
 
-        labelDataModel1.setId(label1);
+        labelDataModel1.setColor(label1);
         labelDataModel1.setName(label1name);
-        labelDataModel2.setId(label2);
+        labelDataModel2.setColor(label2);
         labelDataModel2.setName(label2name);
-        labelDataModel3.setId(label3);
+        labelDataModel3.setColor(label3);
         labelDataModel3.setName(label3name);
         labelDataModelHashMap.put(0, labelDataModel1);
         labelDataModelHashMap.put(1, labelDataModel2);
@@ -68,11 +68,11 @@ public class BoardControllerTest {
         LabelDataModel labelDataModel3 = new LabelDataModel();
         HashMap<Integer, LabelDataModel> labelDataModelHashMap = new HashMap<>();
 
-        labelDataModel1.setId(label1);
+        labelDataModel1.setColor(label1);
         labelDataModel1.setName(label1name);
-        labelDataModel2.setId(label2);
+        labelDataModel2.setColor(label2);
         labelDataModel2.setName(label2name);
-        labelDataModel3.setId(label3);
+        labelDataModel3.setColor(label3);
         labelDataModel3.setName(label3name);
         labelDataModelHashMap.put(0, labelDataModel1);
         labelDataModelHashMap.put(1, labelDataModel2);

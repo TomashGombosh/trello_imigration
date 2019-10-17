@@ -131,8 +131,8 @@ public class BoardController extends ApiHelper {
         HashMap<Integer, LabelDataModel> labelMap = new HashMap<>();
         for (int labelCounter = 0; labelCounter < labelObject.size(); labelCounter++) {
             LabelDataModel label = new LabelDataModel();
-            label.setId(defaultLabels.get(labelCounter).getId());
-            label.setName(labelObject.get(defaultLabels.get(labelCounter).getId()).getAsString());
+            label.setColor(defaultLabels.get(labelCounter).getColor());
+            label.setName(labelObject.get(defaultLabels.get(labelCounter).getColor()).getAsString());
             labelMap.put(labelCounter, label);
         }
         return labelMap;

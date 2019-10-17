@@ -10,20 +10,11 @@ public class BoardDataModel {
     private String id;
     private String name;
     private String description;
-    private String color;
     private HashMap<Integer, LabelDataModel> labels;
     private HashMap<Integer, ListDataModel> lists;
 
     public BoardDataModel() {
 
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public void setLists(HashMap<Integer, ListDataModel> lists) {
@@ -87,16 +78,16 @@ public class BoardDataModel {
 
     public HashMap<Integer, LabelDataModel> defaultLabels() {
         HashMap<Integer, LabelDataModel> map = new HashMap<>();
-        map.put(0, new LabelDataModel("green"));
-        map.put(1, new LabelDataModel("yellow"));
-        map.put(2, new LabelDataModel("orange"));
-        map.put(3, new LabelDataModel("red"));
-        map.put(4, new LabelDataModel("purple"));
-        map.put(5, new LabelDataModel("blue"));
-        map.put(6, new LabelDataModel("sky"));
-        map.put(7, new LabelDataModel("lime"));
-        map.put(8, new LabelDataModel("pink"));
-        map.put(9, new LabelDataModel("black"));
+        map.put(0, new LabelDataModel("green", ""));
+        map.put(1, new LabelDataModel("yellow", ""));
+        map.put(2, new LabelDataModel("orange", ""));
+        map.put(3, new LabelDataModel("red", ""));
+        map.put(4, new LabelDataModel("purple", ""));
+        map.put(5, new LabelDataModel("blue", ""));
+        map.put(6, new LabelDataModel("sky", ""));
+        map.put(7, new LabelDataModel("lime", ""));
+        map.put(8, new LabelDataModel("pink", ""));
+        map.put(9, new LabelDataModel("black", ""));
         return map;
     }
 
