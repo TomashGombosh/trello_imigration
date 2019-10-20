@@ -92,7 +92,7 @@ public class ListController extends ApiHelper {
 
             return getListDataModel;
         } else {
-            getListDataModel.setId("Board Already Created");
+            getListDataModel.setId("List Already Created");
             return getListDataModel;
         }
     }

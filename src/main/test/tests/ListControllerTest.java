@@ -87,7 +87,7 @@ public class ListControllerTest {
         ListDataModel alreadyCreatedList = new ListDataModel();
         alreadyCreatedList.setName(listName);
         ListDataModel exception = new ListController(defaultListDataModel.getIdBoard()).createList(alreadyCreatedList);
-        Assert.assertTrue(exception.getId().equals("Board Already Created"));
+        Assert.assertTrue(exception.getId().equals("List Already Created"));
     }
 
     @Test(priority = 7)
