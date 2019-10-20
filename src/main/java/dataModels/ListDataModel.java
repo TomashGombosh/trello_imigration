@@ -42,7 +42,7 @@ public class ListDataModel {
         for (int counter = 0; counter <= jsonArray.size(); counter++) {
             CardDataModel cardDataModel = new CardDataModel();
             cardDataModel.setId(jsonArray.get(counter).getAsJsonObject().get("id").getAsString());
-            cardDataModel.setTitle(jsonArray.get(counter).getAsJsonObject().get("name").getAsString());
+            cardDataModel.setName(jsonArray.get(counter).getAsJsonObject().get("name").getAsString());
             cardDataModel.setListId(id);
             map.put(counter, cardDataModel);
         }
@@ -81,7 +81,7 @@ public class ListDataModel {
         if (this.cards != null && listDataModel.cards != null) {
             for (int i = 0; i < this.cards.size(); i++) {
                 resultList.add(new StringHelper().compareStringsWithLog(this.cards.get(i).getId(), listDataModel.cards.get(i).getId()));
-                resultList.add(new StringHelper().compareStringsWithLog(this.cards.get(i).getTitle(), listDataModel.cards.get(i).getTitle()));
+                resultList.add(new StringHelper().compareStringsWithLog(this.cards.get(i).getName(), listDataModel.cards.get(i).getName()));
             }
         }
         for(int i = 0; i< resultList.size();i++){

@@ -26,4 +26,15 @@
             <class name="tests.ListControllerTest"/>
         </classes>
     </test>
+    <test name="Card Controller Tests">
+        <parameter name="listId" value="5d5ff4ec6734a06c7dc3187a"/>
+        <parameter name="cardName" value="Test_card"/>
+        <parameter name="cardId" value="5d4bee78f418e137d8e54912"/>
+        <parameter name="labelId" value="5d4be8dfaf988c41f2303944"/>
+        <parameter name="labelName" value="P1"/>
+        <parameter name="labelColor" value="green"/>
+        <classes>
+            <class name="tests.CardControllerTest"/>
+        </classes>
+    </test>
 </suite>

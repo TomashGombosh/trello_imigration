@@ -137,7 +137,7 @@ public class ListController extends ApiHelper {
             for (int cardCounter = 0; cardCounter < cardObject.size(); cardCounter++) {
                 CardDataModel cards = new CardDataModel();
                 cards.setId(cardObject.get(cardCounter).getAsJsonObject().get("id").getAsString());
-                cards.setTitle(cardObject.get(cardCounter).getAsJsonObject().get("name").getAsString());
+                cards.setName(cardObject.get(cardCounter).getAsJsonObject().get("name").getAsString());
                 cardMap.put(cardCounter, cards);
             }
             return cardMap;

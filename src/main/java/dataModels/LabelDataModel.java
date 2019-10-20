@@ -11,6 +11,10 @@ public class LabelDataModel {
 
     }
 
+    public LabelDataModel(String id){
+        this.id = id;
+    }
+
     LabelDataModel(String color, String name) {
         this.color = color;
         this.name = name;

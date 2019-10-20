@@ -1,16 +1,19 @@
 package dataModels;
 
 import com.google.gson.JsonArray;
+import services.helper.StringHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CardDataModel {
     private String id;
-    private String title;
+    private String name;
     private String listId;
     private String description;
-    private HashMap<Integer, LabelDataModel> labelsId;
+    private HashMap<Integer, LabelDataModel> labels;
     private String membersId;
+    private boolean closed;
 
     public CardDataModel(){
 
@@ -28,12 +31,12 @@ public class CardDataModel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getListId() {
@@ -52,20 +55,13 @@ public class CardDataModel {
         this.description = description;
     }
 
-    public HashMap<Integer, LabelDataModel> getLabelsId(JsonArray jsonArray) {
-        HashMap<Integer, LabelDataModel> map = new HashMap<>();
-        for (int counter = 0; counter <= jsonArray.size(); counter++) {
-            LabelDataModel labelDataModel = new LabelDataModel();
-            labelDataModel.setId(jsonArray.get(counter).getAsJsonObject().get("id").getAsString());
-            labelDataModel.setName(jsonArray.get(counter).getAsJsonObject().get("name").getAsString());
-            labelDataModel.setColor(jsonArray.get(counter).getAsJsonObject().get("color").getAsString());
-            map.put(counter, labelDataModel);
-        }
-        return map;
+    public HashMap<Integer, LabelDataModel> getLabels() {
+        return labels;
     }
 
-    public void setLabelsId(HashMap<Integer, LabelDataModel> labelsId) {
-        this.labelsId = labelsId;
+
+    public void setLabels(HashMap<Integer, LabelDataModel> labelsId) {
+        this.labels = labels;
     }
 
     public String getMembersId() {
@@ -75,5 +71,39 @@ public class CardDataModel {
     public void setMembersId(String membersId) {
         this.membersId = membersId;
     }
+
+    public boolean getClosed(){
+        return closed;
+    }
+
+    public void setClosed(boolean closed){
+        this.closed = closed;
+    }
+
+    public boolean isDataTheSame(CardDataModel cardDataModel) {
+        boolean same = true;
+        ArrayList<Boolean> resultList = new ArrayList<>();
+        if (this.id != null && cardDataModel.id != null) {
+            resultList.add(new StringHelper().compareStringsWithLog(this.id, cardDataModel.id));
+        }
+        if (this.name != null && cardDataModel.name != null) {
+            resultList.add(new StringHelper().compareStringsWithLog(this.name, cardDataModel.name));
+        }
+        if (this.description != null && cardDataModel.description != null) {
+            resultList.add(new StringHelper().compareStringsWithLog(this.description, cardDataModel.description));
+        }
+        if (this.labels != null && cardDataModel.labels != null) {
+            for (int i = 0; i < this.labels.size(); i++) {
+                resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getColor(), cardDataModel.labels.get(i).getId()));
+                resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getColor(), cardDataModel.labels.get(i).getColor()));
+                resultList.add(new StringHelper().compareStringsWithLog(this.labels.get(i).getName(), cardDataModel.labels.get(i).getName()));
+            }
+        }
+        for (int i = 0; i < resultList.size(); i++) {
+            same &= resultList.get(i);
+        }
+        return same;
+    }
+
 }
 
