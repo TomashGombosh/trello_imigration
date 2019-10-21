@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.jetbrains.annotations.NotNull;
 import services.helper.ApiHelper;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
